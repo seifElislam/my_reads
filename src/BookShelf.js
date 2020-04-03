@@ -1,14 +1,20 @@
 import React from 'react'
+import Book from './Book'
 
-const BookSelf = (props) => (
-    <div className="bookshelf">
-        <h2 className="bookshelf-title">Read</h2>
+const BookSelf = (props) => {
+    const { shelf, books } = props;
+    const shelfBooks = books.filter(book => book.shelf === shelf.key);
+    return (<div className="bookshelf">
+        <h2 className="bookshelf-title">{shelf.name}</h2>
         <div className="bookshelf-books">
             <ol className="books-grid">
-                <li></li>
+                    {shelfBooks.map(book => (
+                       <li> <Book key={book.id} book={book} shelf={shelf.key} /></li>
+                    ))}
             </ol>
         </div>
-    </div>
-);
+    </div>)
+
+};
 
 export default BookSelf
