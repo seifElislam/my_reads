@@ -1,9 +1,18 @@
 import React from 'react'
 
-const Book = (props) => (
-    <div className="book">
+const Book = (props) => {
+    const { key, book, shelf } = props;
+    return (<div className="book">
         <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 174, backgroundImage: 'url("http://books.google.com/books/content?id=1q_xAwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE712CA0cBYP8VKbEcIVEuFJRdX1k30rjLM29Y-dw_qU1urEZ2cQ42La3Jkw6KmzMmXIoLTr50SWTpw6VOGq1leINsnTdLc_S5a5sn9Hao2t5YT7Ax1RqtQDiPNHIyXP46Rrw3aL8&source=gbs_api")' }}></div>
+            <div className="book-cover" style={{
+                width: 128,
+                height: 174,
+                backgroundImage: `url(${
+                    book.imageLinks
+                        ? book.imageLinks.thumbnail
+                        : "icons/book-placeholder.svg"
+                    })`
+            }}></div>
             <div className="book-shelf-changer">
                 <select>
                     <option value="move" disabled>Move to...</option>
@@ -14,9 +23,10 @@ const Book = (props) => (
                 </select>
             </div>
         </div>
-        <div className="book-title">Oh, the Places You'll Go!</div>
-        <div className="book-authors">Seuss</div>
-    </div>
-);
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
+    </div>)
+
+};
 
 export default Book
