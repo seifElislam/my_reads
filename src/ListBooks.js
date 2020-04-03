@@ -158,7 +158,11 @@ class ListBooks extends React.Component {
                 </div>
               </div>
             </div>
+            <div className="open-search">
+             <button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+           </div>
             </div>
+            
         )
     }
 }
