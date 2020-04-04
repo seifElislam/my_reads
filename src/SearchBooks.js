@@ -7,9 +7,14 @@ import SearchResults from './SearchResults'
 class SearchBooks extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { searchBooks: [] };
+    this.state = { Books: [], searchBooks: [] };
     this.onSearch = this.onSearch.bind(this);
   }
+  componentDidMount = () => {
+    BooksAPI.getAll().then(books => {
+      this.setState({ Books: books });
+    });
+  };
   moveBook = (book, shelf) => {
     BooksAPI.update(book, shelf).catch(err => {
       console.log(err);
@@ -37,7 +42,7 @@ class SearchBooks extends React.Component {
           </Link>
         <SearchInput onSearch={this.onSearch} />
       </div>
-      <SearchResults searchBooks={this.state.searchBooks} onMove={this.moveBook} />
+      <SearchResults Books={this.state.Books} searchBooks={this.state.searchBooks} onMove={this.moveBook} />
     </div>)
   }
 }
