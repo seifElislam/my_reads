@@ -13,6 +13,21 @@ class ListBooks extends React.Component {
             this.setState({ Books: books });
         });
     };
+    moveBook = (book, shelf) => {
+        BooksAPI.update(book, shelf).catch(err => {
+          console.log(err);
+        });
+        if (shelf === "none") {
+          this.setState(prevState => ({
+            Books: prevState.Books.filter(b => b.id !== book.id)
+          }));
+        } else {
+          book.shelf = shelf;
+          this.setState(prevState => ({
+            Books: prevState.Books.filter(b => b.id !== book.id).concat(book)
+          }));
+        }
+      };
     render() {
         const { shelves } = this.props;
         return (
@@ -27,6 +42,7 @@ class ListBooks extends React.Component {
                                 key={shelf.key}
                                 shelf={shelf}
                                 books={this.state.Books}
+                                onMove={this.moveBook}
                             />
                         ))}
                     </div>
