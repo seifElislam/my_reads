@@ -17,7 +17,7 @@ const Book = (props) => {
             <BookStateHandler book={book} shelf={shelf} onMove={onMove}/>
         </div>
         <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors}</div>
+        <div className="book-authors">{book.authors ? book.authors : "Unknown Author"}</div>
     </div>)
 
 };
