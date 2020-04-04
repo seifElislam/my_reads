@@ -1,17 +1,47 @@
 import React, { Component } from "react";
 
 class BookStateHandler extends Component {
+    state = {
+        status: this.props.shelf
+    };
+    bookShelfStates = [
+        {
+            status: "currentlyReading",
+            text: "Currently Reading"
+        },
+
+        {
+            status: "wantToRead",
+            text: "Want to Read"
+        },
+
+        {
+            status: "read",
+            text: "Read"
+        },
+
+        {
+            status: "none",
+            text: "None"
+        }
+    ];
+    statusChangeHandler = event => {
+        var nextStatus   = event.target.value;
+        this.setState({ status: nextStatus});
+        this.props.onMove(this.props.book, nextStatus);
+      };
     render() {
-        return(
+        return (
             <div className="book-shelf-changer">
-            <select>
-                <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
-            </select>
-        </div>
+                <select value={this.state.status} onChange={this.statusChangeHandler}>
+                    <option value="move" disabled>
+                        Move to...
+                    </option>
+                    {this.bookShelfStates.map(option => (
+                        <option key={option.status} value={option.status}>{option.text}</option>
+                    ))}
+                </select>
+            </div>
         )
     }
 }
